@@ -5,7 +5,10 @@ import Die from "./components/Die"
 
 export default function App() {
 
-    const [diceValues, setDiceValues] = useState(generateAllNewDice());
+    const [diceValues, setDiceValues] = useState(() => generateAllNewDice());  //Lazy initialization to avoid generating new dice on every render
+
+   const gameWon = diceValues.every(die => die.isheld) && diceValues.every(die => die.value === diceValues[0].value)
+    
 
  function generateAllNewDice(){
     const randomNumbers = [];
@@ -47,7 +50,7 @@ const diceElements = diceValues.map(dieObject =>
                 {diceElements}
             </div>
 
-            <button className="roll-dice" onClick = {rollDice}> Roll </button>
+            <button className="roll-dice" onClick = {rollDice}> {gameWon? "New Game": "Roll"} </button>
         </main>
     )
 }
