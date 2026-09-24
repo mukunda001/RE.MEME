@@ -12,7 +12,7 @@ export default function App() {
     for (let i = 0; i < 10; i++) {
     const randomNum = Math.floor(Math.random() * 6) + 1
     randomNumbers.push({value: randomNum,
-                        isheld: true,
+                        isheld: false,
                         id: nanoid()
                     });
 }
@@ -23,7 +23,17 @@ function rollDice(){
     setDiceValues(generateAllNewDice());
 }
 
-const diceElements = diceValues.map(dieObject => <Die key = {dieObject.id} value = {dieObject.value} isHeld = {dieObject.isheld} />
+function holdDice(id){
+    setDiceValues(prevDice => prevDice.map(element =>
+         element.id === id? ({...element, isheld: !element.isheld}) : element
+    ))
+}
+
+const diceElements = diceValues.map(dieObject => 
+                                        <Die key = {dieObject.id} 
+                                        value = {dieObject.value} 
+                                        isHeld = {dieObject.isheld}
+                                        hold = {() => holdDice(dieObject.id)} />
 )
 
     return (
