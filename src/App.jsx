@@ -20,7 +20,10 @@ return randomNumbers;
 }
 
 function rollDice(){
-    setDiceValues(generateAllNewDice());
+    setDiceValues(oldDice => oldDice.map(element =>
+        element.isheld === true? element:
+        {...element, value: Math.floor(Math.random() * 6) + 1}
+    ));
 }
 
 function holdDice(id){
@@ -38,6 +41,8 @@ const diceElements = diceValues.map(dieObject =>
 
     return (
         <main>
+             <h1 className="title">Tenzies</h1>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
             <div className="dice-container">
                 {diceElements}
             </div>
