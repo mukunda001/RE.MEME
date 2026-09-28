@@ -23,10 +23,13 @@ return randomNumbers;
 }
 
 function rollDice(){
-    setDiceValues(oldDice => oldDice.map(element =>
+   if(!gameWon) {setDiceValues(oldDice => oldDice.map(element =>
         element.isheld === true? element:
         {...element, value: Math.floor(Math.random() * 6) + 1}
-    ));
+    ));}
+    else{
+        setDiceValues(generateAllNewDice());
+    }
 }
 
 function holdDice(id){
