@@ -1,82 +1,50 @@
-/*index.css */
-
 * {
     box-sizing: border-box;
 }
 
 body {
-     font-family: Inter, sans-serif;
     margin: 0;
-    background-color: #0B2434;
+    font-family: "Hanken Grotesk", Arial, sans-serif;
+    background-color: #262626;
+    color: #D9D9D9;
     padding: 20px;
-     height: 100vh;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
-
-div#root {
-    height: 100%;
-    width: 100%;
-    max-height: 400px;
-    max-width: 400px;
-}
-
-main {
-    background-color: #F5F5F5;
-    height: 300px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.title {
-    font-size: 35px;
-    margin: 0;
-}
-
-.instructions {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    margin-top: 0;
+header {
     text-align: center;
 }
 
- .dice-container {
-    display: grid;
-    grid-template: auto auto / repeat(5, 1fr);
-    gap: 12px;
+header > h1 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #F9F4DA;
 }
 
-.dice-container button {
-    height: 50px;
-    width: 50px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    border: none;
-    background-color: white;
-    font-family: Inter, sans-serif;
-    font-size: 1.75rem;
-    font-weight: bold;
-    cursor: pointer;
-} 
-
- button.roll-dice{
-   height: 50px;
-    width: auto;
-    white-space: nowrap;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: #5035FF;
-    color: white;
-    font-size: 1.2rem;
-    font-family: Inter, sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 20px;
+header > p {
+    font-size: 0.875rem;
+    max-width: 350px;
+    color: #8E8E8E;
 }
+
+section.game-status{
+     background-color: #10A95B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:#F9F4DA;
+    border-radius: 5px;
+    margin-block: 30px;
+}
+
+section.game-status > h2{
+    font-size: 1.25rem;
+    margin: 5px;
+}
+
+section.game-status >p{
+    margin: 5px;
+}
+
