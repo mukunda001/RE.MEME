@@ -48,3 +48,34 @@ section.game-status >p{
     margin: 5px;
 }
 
+section.language-chips{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 350px;
+    margin-bottom: 36px;
+}
+
+span.chips{
+    padding: 4.5px;
+    border-radius: 3px;
+}
+
+section.word{
+    display:flex;
+    justify-content:center;
+    gap:2px;
+}
+
+section.word > span{
+    height: 40px;
+    width: 40px;
+    background-color: #323232;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.125rem;
+    border-bottom: 1px solid #F9F4DA;
+}
+
