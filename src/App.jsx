@@ -1,16 +1,35 @@
 //App.jsx
 import {useState} from "react"
 import {languages} from './languages.js'
+import {clsx} from 'clsx'
 
 
 export default function AssemblyEndgame() {
 
-    const [currentWord, setCurrentWord] = useState("React")
+    const [currentWord, setCurrentWord] = useState("react")  
+    const [guessedtLetter, setGuessedLetter] = useState("")
 
     const alphabet = "qwertyuiopasdfghjklzxcvbnm"
-    const keys = alphabet.split("").map(letter => (
-        <button key = {letter} className = "key"> {letter.toUpperCase()}</button>
-    ))
+
+    function addGuessedLetter(letter){
+        setGuessedLetter(prev => prev.includes(letter)? prev : [...prev, letter])
+    }
+
+
+    const keys = alphabet.split("").map(letter => {
+        const isGuessed = guessedtLetter.includes(letter)
+        const isCorrect = isGuessed && currentWord.includes(letter)
+        const isWrong = isGuessed && !currentWord.includes(letter)
+        const className = clsx({
+            correct: isCorrect,
+            wrong: isWrong
+        })
+
+        return(
+        <button key = {letter}  className = {className}  onClick= {() => addGuessedLetter(letter)}> 
+                {letter.toUpperCase()}
+                    </button>)
+})
 
     const languageChips = languages.map(lang => {
           const styles = {
@@ -24,7 +43,7 @@ export default function AssemblyEndgame() {
                 </span>
         )})
 
-        const letters = currentWord.split("").map((letter, index)=>
+        const currentLetters = currentWord.split("").map((letter, index)=>
             (<span key = {index}>{letter.toUpperCase()}</span>)
         )
 
@@ -45,7 +64,7 @@ export default function AssemblyEndgame() {
             </section>
 
             <section className="word">
-                {letters}
+                {currentLetters}
             </section>
 
             <section className= "keyboard">
