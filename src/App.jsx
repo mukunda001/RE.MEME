@@ -5,10 +5,14 @@ import {clsx} from 'clsx'
 
 
 export default function AssemblyEndgame() {
-
+    //State values
     const [currentWord, setCurrentWord] = useState("react")  
-    const [guessedtLetter, setGuessedLetter] = useState("")
+    const [guessedtLetter, setGuessedLetter] = useState([])
 
+    //Derived Values
+    const wrongGuessCount = guessedtLetter.filter(letter => !currentWord.includes(letter)).length
+
+    //Static Values
     const alphabet = "qwertyuiopasdfghjklzxcvbnm"
 
     function addGuessedLetter(letter){
@@ -31,20 +35,21 @@ export default function AssemblyEndgame() {
                     </button>)
 })
 
-    const languageChips = languages.map(lang => {
+    const languageChips = languages.map((lang, index) => {
+        const isLanguageLost = index < wrongGuessCount
           const styles = {
             backgroundColor: lang.backgroundColor,
             color: lang.color
         }
         return(
         <span
-            className = "chips" style = {styles} key = {lang.name}>
+            className = {clsx("chip", isLanguageLost && "lost")} style = {styles} key = {lang.name}>
                 {lang.name}
                 </span>
         )})
 
         const currentLetters = currentWord.split("").map((letter, index)=>
-            (<span key = {index}>{letter.toUpperCase()}</span>)
+            (<span key = {index}>{guessedtLetter.includes(letter) &&currentWord.includes(letter)? letter.toUpperCase() : ""}</span>)
         )
 
     return (
