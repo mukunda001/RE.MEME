@@ -2,18 +2,22 @@
 import {useState} from "react"
 import {languages} from './languages.js'
 import {clsx} from 'clsx'
+import {getFarewellText} from "./utils.js"
 
 
 export default function AssemblyEndgame() {
     //State values
     const [currentWord, setCurrentWord] = useState("react")  
-    const [guessedtLetter, setGuessedLetter] = useState([])
+    const [guessedLetter, setGuessedLetter] = useState([])
 
     //Derived Values
-    const wrongGuessCount = guessedtLetter.filter(letter => !currentWord.includes(letter)).length
-    const isGameWon = currentWord.split("").every(letter => guessedtLetter.includes(letter))
+    const wrongGuessCount = guessedLetter.filter(letter => !currentWord.includes(letter)).length
+    const isGameWon = currentWord.split("").every(letter => guessedLetter.includes(letter))
     const isGameLost = wrongGuessCount >= languages.length -1
     const isGameOver = isGameWon || isGameLost
+    const lastGuessedLetter = guessedLetter[guessedLetter.length - 1]
+    const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
+    const fareWellLang = isLastGuessIncorrect && languages[wrongGuessCount -1].name
 
     //Static Values
     const alphabet = "qwertyuiopasdfghjklzxcvbnm"
@@ -26,7 +30,7 @@ export default function AssemblyEndgame() {
 
 
     const keys = alphabet.split("").map(letter => {
-        const isGuessed = guessedtLetter.includes(letter)
+        const isGuessed = guessedLetter.includes(letter)
         const isCorrect = isGuessed && currentWord.includes(letter)
         const isWrong = isGuessed && !currentWord.includes(letter)
         const className = clsx({
@@ -54,15 +58,17 @@ export default function AssemblyEndgame() {
         )})
 
         const currentLetters = currentWord.split("").map((letter, index)=>
-            (<span key = {index}>{guessedtLetter.includes(letter) &&currentWord.includes(letter)? letter.toUpperCase() : ""}</span>)
+            (<span key = {index}>{guessedLetter.includes(letter) &&currentWord.includes(letter)? letter.toUpperCase() : ""}</span>)
         )
 
         const gameStatusClass = clsx("game-status",
-                                { won:isGameWon, lost:isGameLost})
+                                { won:isGameWon, lost:isGameLost, fareWell: isLastGuessIncorrect && !isGameOver})
 
         function renderGameStatus(){
-            if(!isGameOver){
-                return null
+            if(!isGameOver && isLastGuessIncorrect){
+                return ( 
+                        <p className="farewell-message">{getFarewellText(fareWellLang)}</p>
+                )
             }
             if(isGameWon){
                 return(
@@ -72,7 +78,7 @@ export default function AssemblyEndgame() {
                     </>
                 )
             }
-            else{
+            if(isGameLost){
                 return(
                       <>
                      <h2>Game over!</h2>
@@ -80,6 +86,7 @@ export default function AssemblyEndgame() {
                     </>
                 )
             }
+             return null
         }
 
     return (
