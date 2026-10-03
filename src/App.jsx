@@ -39,7 +39,7 @@ export default function AssemblyEndgame() {
         })
 
         return(
-        <button key = {letter}  className = {className}  onClick= {() => addGuessedLetter(letter)}> 
+        <button key = {letter}  className = {className} disabled ={isGameOver} onClick= {(() => addGuessedLetter(letter))}> 
                 {letter.toUpperCase()}
                     </button>)
 })
